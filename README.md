@@ -5,18 +5,25 @@ Repository untuk hasil program bahan Ujian Tengah Semester (UTS) Pemrograman Mob
 Dashboard Data Hasil Kuisioner Mahasiswa sederhana menggunakan bahasa pemrograman dart dengan melibatkan framework Laravel sebagai backend dan Flutter sebagai framework pengembangan antarmuka pengguna (UI / User Interface).
 
 # Tujuan Project
-    1. Membuat Dashboard sederhana yang dapat menampilkan beberapa hasil data kuisioner terkait masalah komplain oleh mahasiswa. Dengan data yang ditampilkan sebagai berikut:
-    a. Total pengisi survey (reposnden)
+1. Membuat Dashboard sederhana yang dapat menampilkan beberapa hasil data kuisioner terkait masalah komplain oleh mahasiswa. Dengan data yang ditampilkan sebagai berikut:
+
+    a. Total pengisi survey (responden)
+
     b. Jumlah faktor yang dipermasalahkan (per faktor)
+    
     c. Jumlah responden berdasarkan gender
+    
     d. Jumlah responden berdasar negara asal
+    
     e. Rata-rata umur responden total
+    
     f. Rata-rata IPK (GPA) responden total
+    
     g. Detil hasil survey per responden
 
-    2.  Membuat program dengan bahasa pemrograman Dart, menggunakan Framework Laravel dan Flutter
+2.  Membuat program dengan bahasa pemrograman Dart, menggunakan Framework Laravel dan Flutter
 
-    3. Mengaplikasikan pembuatan program yang berbasis fungsi (function) atau objek (OOP)
+3. Mengaplikasikan pembuatan program yang berbasis fungsi (function) atau objek (OOP)
 
 
 # Deskripsi dan Alur Sistem
@@ -31,10 +38,13 @@ Dashboard Data Hasil Kuisioner Mahasiswa sederhana menggunakan bahasa pemrograma
     > Flowchart diatas menjelaskan alur utama pada sistem. Dimulai dari pengolahan data
 
 2. Flowchart olahData()
-![Gambar Flowchart Main ](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/992d9f0b4609e27a28274fc95f5dff3ad3f42ea1/assets/flowchart%20main.png)
+![Gambar FLowchart Fungsi olahData](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/992d9f0b4609e27a28274fc95f5dff3ad3f42ea1/assets/flowchart%20main.png)
+    > Start :
+    > 
 
 3. Flowchart detailData()
-![Gambar Flowchart Main ](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/992d9f0b4609e27a28274fc95f5dff3ad3f42ea1/assets/flowchart%20main.png)
+![Gambar Flowchart fungsi detailData()](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/992d9f0b4609e27a28274fc95f5dff3ad3f42ea1/assets/flowchart%20main.png)
+    > Start:
 
 # Deskripsi Task
 
@@ -50,20 +60,20 @@ Dashboard Data Hasil Kuisioner Mahasiswa sederhana menggunakan bahasa pemrograma
 # Dokumentasi Pengembangan Sistem
 1. Designing User Interface
 
-![Gambar Flowchart Main ](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/992d9f0b4609e27a28274fc95f5dff3ad3f42ea1/assets/flowchart%20main.png)
+![Dokumentasi Design Interface](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/3695ee0601cd195c18c7156f9b93869153b31925/assets/doc2.png)
 
 2. Coding Interface
 
-![Gambar Flowchart Main ](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/992d9f0b4609e27a28274fc95f5dff3ad3f42ea1/assets/flowchart%20main.png)
+![Dokumentasi Coding Interface](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/3695ee0601cd195c18c7156f9b93869153b31925/assets/doc3.png)
 
 3. Coding System
 
-![Gambar Flowchart Main ](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/992d9f0b4609e27a28274fc95f5dff3ad3f42ea1/assets/flowchart%20main.png)
+![Dokumentasi Pengkodingan Sistem](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/992d9f0b4609e27a28274fc95f5dff3ad3f42ea1/assets/flowchart%20main.png)
 
 
 4. Group's Meeting
 
-![Gambar Flowchart Main ](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/992d9f0b4609e27a28274fc95f5dff3ad3f42ea1/assets/flowchart%20main.png)
+![Dokumentasi Group's Meeting](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/3695ee0601cd195c18c7156f9b93869153b31925/assets/doc1.png)
 
 
 

@@ -19,8 +19,22 @@ Dashboard Data Hasil Kuisioner Mahasiswa sederhana menggunakan bahasa pemrograma
     3. Mengaplikasikan pembuatan program yang berbasis fungsi (function) atau objek (OOP)
 
 
-# Alur Sistem
-![Gambar Flowchart Main ](assets/flowchart main.png)
+# Deskripsi dan Alur Sistem
+1. Use Case Diagram
+![Gambar Flowchart Main ](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/992d9f0b4609e27a28274fc95f5dff3ad3f42ea1/assets/flowchart%20main.png)
+    > Pada gambar dijelaskan bahwasanya user dapat mengakses 2 Fitur utama, yaitu Dashboard dan Laman Detail data Koresponden. Pada Dashboard, user dapat melihat hasil visualisasi data survey yang telah berhasil dihimpun. Sedangkan pada detail data koresponden, user dapat mengakses data lengkap mengenai isi survey yang dilakukan oleh mahasiswa.
+
+
+2. Main Flowchart
+![Gambar Flowchart Main ](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/992d9f0b4609e27a28274fc95f5dff3ad3f42ea1/assets/flowchart%20main.png)
+
+    > Flowchart diatas menjelaskan alur utama pada sistem. Dimulai dari pengolahan data
+
+2. Flowchart olahData()
+![Gambar Flowchart Main ](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/992d9f0b4609e27a28274fc95f5dff3ad3f42ea1/assets/flowchart%20main.png)
+
+3. Flowchart detailData()
+![Gambar Flowchart Main ](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/992d9f0b4609e27a28274fc95f5dff3ad3f42ea1/assets/flowchart%20main.png)
 
 # Deskripsi Task
 
@@ -28,17 +42,32 @@ Dashboard Data Hasil Kuisioner Mahasiswa sederhana menggunakan bahasa pemrograma
 
 
 # Hasil Pengujian Program
+1. Dashboard Page
 
-# Dokumentasi Pengembangan
-## 1. Designing User Interface
+2. Correspondence's Page Detail 
 
-## 2. Coding Interface
 
-## 3. Coding System
+# Dokumentasi Pengembangan Sistem
+1. Designing User Interface
 
-## 4. Group's Meeting
+![Gambar Flowchart Main ](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/992d9f0b4609e27a28274fc95f5dff3ad3f42ea1/assets/flowchart%20main.png)
 
-## 5. Testing System
+2. Coding Interface
+
+![Gambar Flowchart Main ](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/992d9f0b4609e27a28274fc95f5dff3ad3f42ea1/assets/flowchart%20main.png)
+
+3. Coding System
+
+![Gambar Flowchart Main ](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/992d9f0b4609e27a28274fc95f5dff3ad3f42ea1/assets/flowchart%20main.png)
+
+
+4. Group's Meeting
+
+![Gambar Flowchart Main ](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/992d9f0b4609e27a28274fc95f5dff3ad3f42ea1/assets/flowchart%20main.png)
+
+
+
+5. Testing System
 
 
 # Contributor

@@ -12,7 +12,7 @@ class UtsTableController extends Controller
     }
     public function show_all(){
         $data = uts_table::all();
-        return response()->json($data);
+        return response()->json_decode($data);
     }
     public function store(Request $request){
         $save = new uts_table;
@@ -79,5 +79,10 @@ class UtsTableController extends Controller
         $countRespondentsNationality = uts_table::where('nationality',$nationality)->count();
 
         return response()->json([$countRespondentsNationality]);
+    }
+    public function countRespondentsGenre($genre){
+        $countRespondentsGenre = uts_table::where('genre',$genre)->count();
+
+        return response()->json([$countRespondentsGenre]);
     }
 }

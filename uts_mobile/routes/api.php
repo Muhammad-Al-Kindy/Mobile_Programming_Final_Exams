@@ -30,6 +30,7 @@ Route::controller(UtsTableController::class)->group(function(){
 });
 Route::controller(UtsTableController::class)->group(function(){
     Route::get('/count/respondents',"countRespondents");
+    Route::get('/count/genre/{genre}',"countRespondentsGenre");
     Route::get('/count/age/{age}',"countRespondentsAge");
     Route::get('/count/gender/{gender}',"countRespondentsGender");
     Route::get('/count/gpa/{gpa}',"countRespondentsGpa");

@@ -3,7 +3,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ui';
-
+import 'package:midterm_exam_mobile/pickers/font_pickers.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:midterm_exam_mobile/models/age.dart';
@@ -39,7 +39,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     super.initState();
   }
 
-  String url_domain = "http://192.168.0.5:8000/";
+  String url_domain = "http://192.168.0.9:8000/";
 
   Future<dynamic> countRespondents() async {
     var response = await dio.get("${url_domain}api/count/respondents");
@@ -339,7 +339,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cripst'),
+        centerTitle: true,
+        title: Text(
+          'Cripst Dashboard',
+          textAlign: TextAlign.end,
+          style: TextStyle(
+            fontFamily: FontPicker.bold,
+          ),
+        ),
         backgroundColor: Color.fromARGB(255, 21, 57, 135),
       ),
       body: CustomScrollView(
@@ -357,21 +364,37 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             margin: const EdgeInsets.symmetric(
                                 vertical: 20, horizontal: 20),
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 const Padding(
                                   padding: EdgeInsets.only(bottom: 20),
                                   child: Text(
-                                    "Hasil Survey dari Responden : ",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w900),
+                                    "Hasil Survey dari Responden ",
+                                    textAlign: TextAlign.end,
+                                    style: TextStyle(
+                                        fontFamily: FontPicker.bold,
+                                        fontSize: 18),
                                   ),
                                 ),
                                 Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     ExpansionTile(
-                                      title:
-                                          const Text('Negara Asal Koresponden'),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15.0)),
+                                      collapsedShape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15.0)),
+                                      collapsedBackgroundColor:
+                                          Color.fromRGBO(223, 232, 243, 0.98),
+                                      backgroundColor:
+                                          Color.fromRGBO(223, 232, 243, 0.98),
+                                      title: const Text(
+                                        'Negara Asal Koresponden',
+                                        style: TextStyle(
+                                            fontFamily: FontPicker.medium),
+                                      ),
                                       children: <Widget>[
                                         ListBody(
                                           children: <Widget>[
@@ -399,6 +422,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                     ),
                                   ],
                                 ),
+                                SizedBox(height: 10),
                                 Row(
                                   children: <Widget>[
                                     Row(
@@ -407,6 +431,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                       children: [
                                         Container(
                                           child: Card(
+                                            color: Color.fromRGBO(
+                                                223, 232, 243, 1),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(15.0),
@@ -423,17 +449,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                   child: Text(
                                                     "Koresponden",
                                                     style: TextStyle(
-                                                      color: Colors.red[900],
-                                                      fontWeight:
-                                                          FontWeight.w800,
-                                                    ),
+                                                        color: Color.fromARGB(
+                                                            255, 0, 0, 0),
+                                                        fontFamily:
+                                                            FontPicker.medium,
+                                                        fontSize: 17),
                                                   ),
                                                 ),
                                                 Container(
                                                   width: 150,
-                                                  height: 70,
-                                                  margin: EdgeInsets.all(6),
-                                                  padding: EdgeInsets.all(10),
+                                                  height: 60,
                                                   child: FutureBuilder<dynamic>(
                                                     future: countRespondents(),
                                                     builder:
@@ -444,11 +469,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                             snapshot.data
                                                                 .toString(),
                                                             style: TextStyle(
-                                                              color: Colors
-                                                                  .blue[800],
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w800,
+                                                              color: Color
+                                                                  .fromARGB(
+                                                                      255,
+                                                                      59,
+                                                                      104,
+                                                                      156),
+                                                              fontFamily:
+                                                                  FontPicker
+                                                                      .bold,
                                                               fontSize: 30,
                                                             ),
                                                           ),
@@ -471,9 +500,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                   child: Text(
                                                     "Person",
                                                     style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w800,
-                                                    ),
+                                                        fontFamily:
+                                                            FontPicker.medium,
+                                                        fontSize: 15),
                                                   ),
                                                 ),
                                               ],
@@ -482,6 +511,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                         ),
                                         Container(
                                           child: Card(
+                                            color: Color.fromRGBO(
+                                                223, 232, 243, 0.98),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(15.0),
@@ -497,21 +528,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                   child: Text(
                                                     "Gender Responden",
                                                     style: TextStyle(
-                                                      color: Colors.red[900],
-                                                      fontWeight:
-                                                          FontWeight.w800,
-                                                    ),
+                                                        fontSize: 17,
+                                                        fontFamily:
+                                                            FontPicker.medium),
                                                   ),
                                                 ),
                                                 Container(
-                                                  width: 190,
-                                                  height: 110,
+                                                  width: 205,
+                                                  height: 95,
                                                   child: SfCircularChart(
                                                     legend:
                                                         Legend(isVisible: true),
                                                     series: <CircularSeries>[
                                                       DoughnutSeries<Gender,
                                                           String>(
+                                                        enableTooltip: true,
                                                         dataLabelSettings:
                                                             DataLabelSettings(
                                                                 isVisible:
@@ -535,10 +566,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                     ),
                                   ],
                                 ),
+                                SizedBox(height: 10),
                                 Column(
                                   children: <Widget>[
                                     ExpansionTile(
-                                      title: const Text('Faktor Permasalahan'),
+                                      title: const Text(
+                                        'Faktor Permasalahan',
+                                        style: TextStyle(
+                                            fontFamily: FontPicker.medium),
+                                      ),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15.0)),
+                                      collapsedShape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15.0)),
+                                      collapsedBackgroundColor:
+                                          Color.fromRGBO(223, 232, 243, 0.98),
+                                      backgroundColor:
+                                          Color.fromRGBO(223, 232, 243, 0.98),
                                       children: <Widget>[
                                         ListBody(
                                           children: <Widget>[
@@ -552,6 +598,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                       _tooltipBehavior,
                                                   series: <ChartSeries>[
                                                     BarSeries<Genre, String>(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(15.0),
                                                         dataSource: _genreData,
                                                         xValueMapper:
                                                             (Genre genre, _) =>
@@ -583,6 +632,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                     ),
                                   ],
                                 ),
+                                SizedBox(
+                                  height: 10,
+                                ),
                                 Row(
                                   children: <Widget>[
                                     Row(
@@ -591,6 +643,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                       children: [
                                         Container(
                                           child: Card(
+                                            color: Color.fromRGBO(
+                                                223, 232, 243, 1),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(15.0),
@@ -605,16 +659,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                       const EdgeInsets.only(
                                                           top: 15),
                                                   child: Text(
-                                                    "Rerata GPA",
+                                                    "Average GPA",
                                                     style: TextStyle(
-                                                      color: Colors.red[900],
-                                                      fontWeight:
-                                                          FontWeight.w800,
-                                                    ),
+                                                        fontFamily:
+                                                            FontPicker.medium,
+                                                        fontSize: 17),
                                                   ),
                                                 ),
                                                 Container(
-                                                  width: 150,
+                                                  width: 165,
                                                   height: 70,
                                                   margin: EdgeInsets.all(6),
                                                   padding: EdgeInsets.all(10),
@@ -630,11 +683,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                                 .toStringAsFixed(
                                                                     3),
                                                             style: TextStyle(
-                                                              color: Colors
-                                                                  .blue[800],
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w800,
+                                                              color: Color
+                                                                  .fromARGB(
+                                                                      255,
+                                                                      59,
+                                                                      104,
+                                                                      156),
+                                                              fontFamily:
+                                                                  FontPicker
+                                                                      .bold,
                                                               fontSize: 30,
                                                             ),
                                                           ),
@@ -655,11 +712,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                   alignment:
                                                       Alignment.topCenter,
                                                   child: Text(
-                                                    "Gpa",
+                                                    "GPA",
                                                     style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w800,
-                                                    ),
+                                                        fontFamily:
+                                                            FontPicker.medium,
+                                                        fontSize: 17),
                                                   ),
                                                 ),
                                               ],
@@ -668,6 +725,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                         ),
                                         Container(
                                           child: Card(
+                                            color: Color.fromRGBO(
+                                                223, 232, 243, 1),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(15.0),
@@ -681,16 +740,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                   padding:
                                                       EdgeInsets.only(top: 15),
                                                   child: Text(
-                                                    "Avrage Age Responden",
+                                                    "Average Age ",
                                                     style: TextStyle(
-                                                      color: Colors.red[900],
-                                                      fontWeight:
-                                                          FontWeight.w800,
-                                                    ),
+                                                        fontFamily:
+                                                            FontPicker.medium,
+                                                        fontSize: 17),
                                                   ),
                                                 ),
                                                 Container(
-                                                  width: 150,
+                                                  width: 165,
                                                   height: 70,
                                                   margin: EdgeInsets.all(6),
                                                   padding: EdgeInsets.all(10),
@@ -704,11 +762,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                             (snapshot.data
                                                                 .toString()),
                                                             style: TextStyle(
-                                                              color: Colors
-                                                                  .blue[800],
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w800,
+                                                              color: Color
+                                                                  .fromARGB(
+                                                                      255,
+                                                                      59,
+                                                                      104,
+                                                                      156),
+                                                              fontFamily:
+                                                                  FontPicker
+                                                                      .bold,
                                                               fontSize: 30,
                                                             ),
                                                           ),
@@ -731,9 +793,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                   child: Text(
                                                     "Age",
                                                     style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w800,
-                                                    ),
+                                                        fontFamily:
+                                                            FontPicker.medium,
+                                                        fontSize: 17),
                                                   ),
                                                 ),
                                               ],
@@ -744,11 +806,27 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                     ),
                                   ],
                                 ),
+                                SizedBox(
+                                  height: 10,
+                                ),
                                 Column(
                                   children: <Widget>[
                                     ExpansionTile(
-                                      title:
-                                          const Text('Rerata Umur Responden'),
+                                      title: const Text(
+                                        'Rerata Usia',
+                                        style: TextStyle(
+                                            fontFamily: FontPicker.medium),
+                                      ),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15.0)),
+                                      collapsedShape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15.0)),
+                                      collapsedBackgroundColor:
+                                          Color.fromRGBO(223, 232, 243, 0.98),
+                                      backgroundColor:
+                                          Color.fromRGBO(223, 232, 243, 0.98),
                                       children: <Widget>[
                                         ListBody(
                                           children: <Widget>[
@@ -802,7 +880,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                           .pushNamed(AppRoutes.detailScreen);
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.red[800],
+                                      backgroundColor:
+                                          Color.fromARGB(255, 63, 96, 169),
                                       padding: const EdgeInsets.all(15),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(10),
@@ -812,7 +891,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                       "Lihat Detail Responden",
                                       style: TextStyle(
                                         color: Colors.white,
-                                        fontWeight: FontWeight.bold,
+                                        fontFamily: FontPicker.bold,
                                         fontSize: 18,
                                       ),
                                     ),

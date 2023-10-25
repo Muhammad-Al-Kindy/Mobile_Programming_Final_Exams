@@ -428,10 +428,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                       children: <Widget>[
                                         ListBody(
                                           children: <Widget>[
-                                            BarChart(BarChartData(
-                                                minY: 0,
-                                                maxY: 200,
-                                                barGroups: _genreData)),
                                             SfCartesianChart(
                                               primaryXAxis: CategoryAxis(),
                                               legend: Legend(isVisible: true),

@@ -12,7 +12,8 @@ class UtsTableController extends Controller
     }
     public function show_all(){
         $data = uts_table::all();
-        return response()->json_decode($data);
+        return response()->json($data);
+
     }
     public function store(Request $request){
         $save = new uts_table;
@@ -58,7 +59,7 @@ class UtsTableController extends Controller
     public function countRespondents(){
         $countRow = uts_table::count();
 
-        return response()->json($countRow);
+        return $countRow;
     }
     public function countRespondentsAge($age){
         $countAvgRespontsAge = uts_table::where('age',$age)->count();

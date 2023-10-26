@@ -1,10 +1,10 @@
-# MidTerm-Exam-Mobile-Programming
+# ❇️ MidTerm-Exam-Mobile-Programming ❇️
 Repository untuk hasil program bahan Ujian Tengah Semester (UTS) Pemrograman Mobile Tahun Ajaran 2023-2024
 
-# Dashboard Mobile - Project
+# 📱 Dashboard Mobile - Project
 Dashboard Data Hasil Kuisioner Mahasiswa sederhana menggunakan bahasa pemrograman dart dengan melibatkan framework Laravel sebagai backend dan Flutter sebagai framework pengembangan antarmuka pengguna (UI / User Interface).
 
-#  Tujuan Project
+# 📤 Tujuan Project
 1. Membuat Dashboard sederhana yang dapat menampilkan beberapa hasil data kuisioner terkait masalah komplain oleh mahasiswa. Dengan data yang ditampilkan sebagai berikut:
 
     a. Total pengisi survey (responden)
@@ -26,7 +26,7 @@ Dashboard Data Hasil Kuisioner Mahasiswa sederhana menggunakan bahasa pemrograma
 3. Mengaplikasikan pembuatan program yang berbasis fungsi (function) atau objek (OOP)
 
 
-# Deskripsi dan Alur Sistem
+# 💿 Deskripsi dan Alur Sistem
 1. Use Case Diagram
 ![Gambar Flowchart Main ](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/9937d9db3b145a202a0c726910669df4aa26ee22/documentation%20picture/Use%20Case%20-%20UTS%20Mobile.drawio%20(1).png)
 
@@ -66,14 +66,14 @@ Dashboard Data Hasil Kuisioner Mahasiswa sederhana menggunakan bahasa pemrograma
 
     > e. Apabila dipilih penampilan data lebih banyak, sistem akan mengakses fungsi *onTap()* untuk mengakses fungsi berikutnya dengan tujuan menampilkan detail data lanjutan pada row selanjutnya
 
-# Deskripsi Task
+# 📚 Deskripsi Folder
 1. Folder `midterm_exam_mobile` berisi kode program untuk pembuatan sistem menggunakan framework Flutter dan bahasa Dart
 2. Folder `uts_mobile` berisi kode program untuk pengelolaan backend melalui laravel
 3. Folder `documentation_picture` berisi folder gambar dalam penampilan laporan
 4. Folder `uts__mobile` pada branch `mobile-interface` berisi kode program pembentukan user interface
 
 
-# Hasil Pengujian Program
+# 🗯️ Hasil Pengujian Program
 1. Dashboard Page
 
     |ID | Case | Expected Result | Actual Result | Status |
@@ -82,17 +82,6 @@ Dashboard Data Hasil Kuisioner Mahasiswa sederhana menggunakan bahasa pemrograma
     |USR02| Penampilan data hasil Kalkulasi | Data hasil tampil tanpa adanya kegagalan kalkulasi | Data hasil tampil tanpa adanya kegagalan kalkulasi| Sesuai |
     |USR03| Penampilan detail data lanjutan | Data detail tampil sesuai dengan baris/row pada sumber data| Data detail tampil sesuai dengan baris/row pada sumber data| Sesuai |
 
-    a. Hasil Tampilan Testing USR01
-    ![Dokumentasi Testing](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/00ddb24b67df693a20e92f45d93ec864d53d2274/documentation_picture/testing1.jpg)
-
-    ![Dokumentasi Testing](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/00ddb24b67df693a20e92f45d93ec864d53d2274/documentation_picture/testing2.jpg)
-
-    b. Hasil Tampilan Testing USR02
-    ![Dokumentasi Group's Meeting](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/00ddb24b67df693a20e92f45d93ec864d53d2274/documentation_picture/testing3.jpg)
-
-    c. Hasil Tampilan Testing USR03
-    ![Dokumentasi Group's Meeting](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/00ddb24b67df693a20e92f45d93ec864d53d2274/documentation_picture/testing4.jpg)
-
 2. Correspondence's Page Detail 
 
     |ID | Case | Expected Result | Actual Result | Status |
@@ -100,13 +89,21 @@ Dashboard Data Hasil Kuisioner Mahasiswa sederhana menggunakan bahasa pemrograma
     |USR04| Memilih penampilan detail data koresponden | Data detail koresponden tampil sesuai dengan baris/row pada sumber data| Data detail koresponden tampil sesuai dengan baris/row pada sumber data| Sesuai|
     |USR05 | Memilih penampilan detail data lebih banyak dalam satu layar | Terjadi penambahan penampilan data detail sesuai dengan baris/row pada sumber data| Terjadi penambahan penampilan data detail sesuai dengan baris/row pada sumber data| Sesuai
 
-    a. Hasil Tampilan Testing USR04
-    ![Dokumentasi Group's Meeting]()
+    ## 💫 Hasil Tampilan Testing
 
-    b. Hasil Tampilan Testing USR05
-    ![Dokumentasi Group's Meeting]()
+    ![Dokumentasi Testing](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/00ddb24b67df693a20e92f45d93ec864d53d2274/documentation_picture/testing1.jpg)
 
-# Dokumentasi Pengembangan Sistem
+    ![Dokumentasi Testing](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/00ddb24b67df693a20e92f45d93ec864d53d2274/documentation_picture/testing2.jpg)
+
+    ![Dokumentasi Testing](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/00ddb24b67df693a20e92f45d93ec864d53d2274/documentation_picture/testing3.jpg)
+
+    ![Dokumentasi Testing](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/00ddb24b67df693a20e92f45d93ec864d53d2274/documentation_picture/testing4.jpg)
+
+    ![Dokumentasi Testing](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/07abb6846769a7154a06211a17117bf1b1ba4ced/documentation_picture/testing5.jpg)
+
+    ![Dokumentasi Testing](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/07abb6846769a7154a06211a17117bf1b1ba4ced/documentation_picture/testing6.png)
+
+# 🗨️ Dokumentasi Pengembangan Sistem
 1. Designing User Interface
 
 ![Dokumentasi Design Interface](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/3695ee0601cd195c18c7156f9b93869153b31925/assets/doc2.png)
@@ -125,12 +122,11 @@ Dashboard Data Hasil Kuisioner Mahasiswa sederhana menggunakan bahasa pemrograma
 ![Dokumentasi Group's Meeting](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/3695ee0601cd195c18c7156f9b93869153b31925/assets/doc1.png)
 
 
-
 5. Testing System
-![Dokumentasi Group's Meeting]()
+![Dokumentasi Group's Meeting](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/07abb6846769a7154a06211a17117bf1b1ba4ced/documentation_picture/testingdoc.jpg)
 
 
-# Contributor
+# 💥 Contributor
     Kelompok 6 SIB 3E
     1. Niken Maharani Permata - 2141762006 / 19
         Peran : UI Designer dan Technical Writer

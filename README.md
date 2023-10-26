@@ -4,6 +4,8 @@ Repository untuk hasil program bahan Ujian Tengah Semester (UTS) Pemrograman Mob
 # 📱 Dashboard Mobile - Project
 Dashboard Data Hasil Kuisioner Mahasiswa sederhana menggunakan bahasa pemrograman dart dengan melibatkan framework Laravel sebagai backend dan Flutter sebagai framework pengembangan antarmuka pengguna (UI / User Interface).
 
+!['Gambar Home Dashboard'](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/7749e5e8b2d4eeca933454db8c60af68f4f5397c/documentation_picture/testing1.jpg)
+
 # 📤 Tujuan Project
 1. Membuat Dashboard sederhana yang dapat menampilkan beberapa hasil data kuisioner terkait masalah komplain oleh mahasiswa. Dengan data yang ditampilkan sebagai berikut:
 
@@ -123,6 +125,7 @@ Dashboard Data Hasil Kuisioner Mahasiswa sederhana menggunakan bahasa pemrograma
 
 
 5. Testing System
+
 ![Dokumentasi Group's Meeting](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/07abb6846769a7154a06211a17117bf1b1ba4ced/documentation_picture/testingdoc.jpg)
 
 

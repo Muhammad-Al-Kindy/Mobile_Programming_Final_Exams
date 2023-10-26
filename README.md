@@ -55,7 +55,7 @@ Dashboard Data Hasil Kuisioner Mahasiswa sederhana menggunakan bahasa pemrograma
     > e. Program selesai
 
 3. Flowchart detailData()
-![Gambar Flowchart fungsi detailData()](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/9937d9db3b145a202a0c726910669df4aa26ee22/documentation%20picture/detaildata.png)
+![Gambar Flowchart fungsi detailData()](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/00ddb24b67df693a20e92f45d93ec864d53d2274/documentation_picture/olahdata.png)
     > a. Dilakukan grab data pada database
 
     > b. Mengakses List data hasil survey
@@ -67,9 +67,9 @@ Dashboard Data Hasil Kuisioner Mahasiswa sederhana menggunakan bahasa pemrograma
     > e. Apabila dipilih penampilan data lebih banyak, sistem akan mengakses fungsi *onTap()* untuk mengakses fungsi berikutnya dengan tujuan menampilkan detail data lanjutan pada row selanjutnya
 
 # Deskripsi Task
-1. Folder `midterm-_exam_mobile` berisi kode program untuk pembuatan sistem menggunakan framework Flutter dan bahasa Dart
+1. Folder `midterm_exam_mobile` berisi kode program untuk pembuatan sistem menggunakan framework Flutter dan bahasa Dart
 2. Folder `uts_mobile` berisi kode program untuk pengelolaan backend melalui laravel
-3. Folder `documentation picture` berisi folder gambar dalam penampilan laporan
+3. Folder `documentation_picture` berisi folder gambar dalam penampilan laporan
 4. Folder `uts__mobile` pada branch `mobile-interface` berisi kode program pembentukan user interface
 
 
@@ -83,13 +83,15 @@ Dashboard Data Hasil Kuisioner Mahasiswa sederhana menggunakan bahasa pemrograma
     |USR03| Penampilan detail data lanjutan | Data detail tampil sesuai dengan baris/row pada sumber data| Data detail tampil sesuai dengan baris/row pada sumber data| Sesuai |
 
     a. Hasil Tampilan Testing USR01
-    ![Dokumentasi Group's Meeting]()
+    ![Dokumentasi Testing](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/00ddb24b67df693a20e92f45d93ec864d53d2274/documentation_picture/testing1.jpg)
+
+    ![Dokumentasi Testing](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/00ddb24b67df693a20e92f45d93ec864d53d2274/documentation_picture/testing2.jpg)
 
     b. Hasil Tampilan Testing USR02
-    ![Dokumentasi Group's Meeting]()
+    ![Dokumentasi Group's Meeting](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/00ddb24b67df693a20e92f45d93ec864d53d2274/documentation_picture/testing3.jpg)
 
     c. Hasil Tampilan Testing USR03
-    ![Dokumentasi Group's Meeting]()
+    ![Dokumentasi Group's Meeting](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/00ddb24b67df693a20e92f45d93ec864d53d2274/documentation_picture/testing4.jpg)
 
 2. Correspondence's Page Detail 
 
@@ -115,7 +117,7 @@ Dashboard Data Hasil Kuisioner Mahasiswa sederhana menggunakan bahasa pemrograma
 
 3. Coding System
 
-![Dokumentasi Pengkodingan Sistem]()
+![Dokumentasi Pengkodingan Sistem](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/00ddb24b67df693a20e92f45d93ec864d53d2274/documentation_picture/coding.png)
 
 
 4. Group's Meeting

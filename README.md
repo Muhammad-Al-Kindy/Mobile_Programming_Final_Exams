@@ -6,6 +6,16 @@ Dashboard Data Hasil Kuisioner Mahasiswa sederhana menggunakan bahasa pemrograma
 
 !['Gambar Home Dashboard'](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/7749e5e8b2d4eeca933454db8c60af68f4f5397c/documentation_picture/testing1.jpg)
 
+# 💫 Latar Belakang
+Mr. X adalah salah satu Direktur Politeknik terbesar di Indonesia. Untuk menjaga kualitas layanan 
+Pendidikan dan aspek pendukung di kampus, Mr. X melakukan survey terkait masalah komplain oleh 
+mahasiswa yang meliputi faktor: Sumberdaya dan Dukungan Akademik (Academic Support and 
+Resources), Layanan Kantin dan Makanan (Food and Cantines), dan lainnya (Others). Sebagai 
+sample, partisipan pada survey ini adalah mahasiswa dari kelas Internasional. Mr. X ingin mengetahui 
+hasil survey tersebut melalui aplikasi mobile. Sebagai pengembangan tahap pertama, Mr. X hanya 
+perlu mengetahui hasil survey berdasarkan data mentah secara tekstual (tidak perlu hasil analisis dan 
+pengolahan data).
+
 # 📤 Tujuan Project
 1. Membuat Dashboard sederhana yang dapat menampilkan beberapa hasil data kuisioner terkait masalah komplain oleh mahasiswa. Dengan data yang ditampilkan sebagai berikut:
 
@@ -84,13 +94,6 @@ Dashboard Data Hasil Kuisioner Mahasiswa sederhana menggunakan bahasa pemrograma
     |USR02| Penampilan data hasil Kalkulasi | Data hasil tampil tanpa adanya kegagalan kalkulasi | Data hasil tampil tanpa adanya kegagalan kalkulasi| Sesuai |
     |USR03| Penampilan detail data lanjutan | Data detail tampil sesuai dengan baris/row pada sumber data| Data detail tampil sesuai dengan baris/row pada sumber data| Sesuai |
 
-2. Correspondence's Page Detail 
-
-    |ID | Case | Expected Result | Actual Result | Status |
-    |---|------|-----------------|---------------|------|
-    |USR04| Memilih penampilan detail data koresponden | Data detail koresponden tampil sesuai dengan baris/row pada sumber data| Data detail koresponden tampil sesuai dengan baris/row pada sumber data| Sesuai|
-    |USR05 | Memilih penampilan detail data lebih banyak dalam satu layar | Terjadi penambahan penampilan data detail sesuai dengan baris/row pada sumber data| Terjadi penambahan penampilan data detail sesuai dengan baris/row pada sumber data| Sesuai
-
     ## 💫 Hasil Tampilan Testing
 
     ![Dokumentasi Testing](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/00ddb24b67df693a20e92f45d93ec864d53d2274/documentation_picture/testing1.jpg)
@@ -103,7 +106,6 @@ Dashboard Data Hasil Kuisioner Mahasiswa sederhana menggunakan bahasa pemrograma
 
     ![Dokumentasi Testing](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/07abb6846769a7154a06211a17117bf1b1ba4ced/documentation_picture/testing5.jpg)
 
-    ![Dokumentasi Testing](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/07abb6846769a7154a06211a17117bf1b1ba4ced/documentation_picture/testing6.png)
 
 # 🗨️ Dokumentasi Pengembangan Sistem
 1. Designing User Interface

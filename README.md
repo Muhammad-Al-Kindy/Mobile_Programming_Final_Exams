@@ -67,7 +67,9 @@ pengolahan data).
     > e. Program selesai
 
 3. Flowchart detailData()
-![Gambar Flowchart fungsi detailData()](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/00ddb24b67df693a20e92f45d93ec864d53d2274/documentation_picture/olahdata.png)
+
+![Gambar Flowchart fungsi detailData()](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/9dcc2ffe224b869b45a5562642d1d7545558f42f/documentation_picture/detaildata.png)
+
     > a. Dilakukan grab data pada database
 
     > b. Mengakses List data hasil survey
@@ -109,8 +111,6 @@ pengolahan data).
 
 # 🗨️ Dokumentasi Pengembangan Sistem
 1. Designing User Interface
-
-![Dokumentasi Design Interface](https://github.com/nikenmn/MidTerm-Exam-Mobile-Programming/blob/3695ee0601cd195c18c7156f9b93869153b31925/assets/doc2.png)
 
 2. Coding Interface
 

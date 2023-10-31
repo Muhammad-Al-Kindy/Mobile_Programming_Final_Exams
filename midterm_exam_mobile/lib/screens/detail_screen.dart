@@ -21,77 +21,21 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
+  int lastRequestTime = 0;
   final dio = Dio();
   List<Map<String, dynamic>> data = [];
 
-  bool isLoading = false;
-  int currentPage = 1;
-  int totalPages = 10; // Set the total number of pages you want to paginate to.
-  ScrollController _scrollController = ScrollController();
-
-  String url_domain = "http://192.168.0.106:8000/";
+  String url_domain = "http://192.168.77.229:8000/";
 
   @override
   void initState() {
     super.initState();
     show_all_data();
-    _scrollController.addListener(_onScroll);
   }
 
-  @override
-  void dispose() {
-    _scrollController.removeListener(_onScroll);
-    _scrollController.dispose();
-    super.dispose();
-  }
-
-  Future<void> _loadData() async {
-    // Check if we've reached the desired number of pages.
-    if (currentPage > totalPages) {
-      return;
-    }
-
-    // Simulate loading data from your data source (e.g., an API).
-    // Append new items to the 'items' list.
-    setState(() {
-      isLoading = true;
-    });
-
+  Future<dynamic> show_all_data() async {
     try {
-      var response =
-          await dio.post("${url_domain}api/all_data?page=$currentPage");
-      var result = response.data;
-
-      if (result is List) {
-        data.addAll(List<Map<String, dynamic>>.from(result));
-        currentPage++;
-      }
-    } catch (e) {
-      print('error : ${e.toString()}');
-      rethrow;
-    }
-
-    // Fetch and append data here...
-
-    setState(() {
-      isLoading = false;
-      currentPage++;
-    });
-  }
-
-  void _onScroll() {
-    if (_scrollController.position.pixels ==
-        _scrollController.position.maxScrollExtent) {
-      if (!isLoading) {
-        _loadData();
-      }
-    }
-  }
-
-  Future<void> show_all_data() async {
-    try {
-      var response =
-          await dio.post("${url_domain}api/all_data?page=$currentPage");
+      var response = await dio.get("${url_domain}api/all_data");
       var result = response.data;
 
       if (result is List) {
@@ -143,23 +87,67 @@ class _DetailScreenState extends State<DetailScreen> {
                                         fontSize: 18),
                                   ),
                                 ),
-                                ListView.builder(
-                                  controller: _scrollController,
-                                  shrinkWrap: true,
-                                  itemCount: data.length + 1,
-                                  itemBuilder: (context, index) {
-                                    if (index < data.length) {
-                                      return ListTile(
-                                        title: Text(data[index].toString()),
-                                      );
-                                    } else {
-                                      if (isLoading) {
-                                        return CircularProgressIndicator();
-                                      } else {
-                                        return Container(); // No more data
-                                      }
-                                    }
-                                  },
+                                DataTable(
+                                  columnSpacing: 16,
+                                  dataRowMaxHeight: 150,
+                                  columns: const <DataColumn>[
+                                    DataColumn(
+                                      label: Text(
+                                        'Genre',
+                                        style: TextStyle(
+                                            fontStyle: FontStyle.italic),
+                                      ),
+                                    ),
+                                    DataColumn(
+                                      label: Text(
+                                        'Reports',
+                                        style: TextStyle(
+                                            fontStyle: FontStyle.italic),
+                                      ),
+                                    ),
+                                    DataColumn(
+                                      label: Text(
+                                        'Gpa',
+                                        style: TextStyle(
+                                            fontStyle: FontStyle.italic),
+                                      ),
+                                    ),
+                                  ],
+                                  rows: data.map((rowData) {
+                                    return DataRow(
+                                      cells: <DataCell>[
+                                        DataCell(
+                                          Container(
+                                            width: 80, // Atur lebar sel
+                                            height: 200, // Atur tinggi sel
+                                            alignment: Alignment
+                                                .centerLeft, // Atur alignment teks dalam sel
+                                            child: Text(
+                                                rowData['genre'].toString()),
+                                          ), // Atur margin vertikal
+                                        ),
+                                        DataCell(
+                                          Container(
+                                            width: 180, // Atur lebar sel
+                                            height: 150, // Atur tinggi sel
+                                            alignment: Alignment
+                                                .centerLeft, // Atur alignment teks dalam sel
+                                            child: Text(
+                                                rowData['reports'].toString()),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          Container(
+                                              width: 100, // Atur lebar sel
+                                              height: 40, // Atur tinggi sel
+                                              alignment: Alignment
+                                                  .centerLeft, // Atur alignment teks dalam sel
+                                              child: Text(
+                                                  rowData['gpa'].toString())),
+                                        )
+                                      ],
+                                    );
+                                  }).toList(),
                                 ),
                               ],
                             ),

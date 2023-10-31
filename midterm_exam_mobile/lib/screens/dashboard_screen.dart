@@ -39,7 +39,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     super.initState();
   }
 
-  String url_domain = "http://192.168.0.9:8000/";
+  String url_domain = "http://192.168.77.229:8000/";
 
   Future<dynamic> countRespondents() async {
     var response = await dio.get("${url_domain}api/count/respondents");
@@ -375,11 +375,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                         fontSize: 18),
                                   ),
                                 ),
+                                SizedBox(height: 10),
                                 Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     ExpansionTile(
+                                      title: const Text(
+                                        'Koresponden',
+                                        style: TextStyle(
+                                            fontFamily: FontPicker.bold),
+                                      ),
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(15.0)),
@@ -390,31 +394,199 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                           Color.fromRGBO(223, 232, 243, 0.98),
                                       backgroundColor:
                                           Color.fromRGBO(223, 232, 243, 0.98),
-                                      title: const Text(
-                                        'Negara Asal Koresponden',
-                                        style: TextStyle(
-                                            fontFamily: FontPicker.medium),
-                                      ),
                                       children: <Widget>[
                                         ListBody(
                                           children: <Widget>[
-                                            SfCircularChart(
-                                              legend: Legend(isVisible: true),
-                                              series: <CircularSeries>[
-                                                PieSeries<Negara, String>(
-                                                  dataLabelSettings:
-                                                      DataLabelSettings(
+                                            Container(
+                                              alignment: Alignment.topLeft,
+                                              child: Column(
+                                                children: <Widget>[
+                                                  Row(
+                                                    children: <Widget>[
+                                                      Container(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                left: 45,
+                                                                right: 50),
+                                                        child: Column(
+                                                          children: [
+                                                            Container(
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .all(10),
+                                                              child: Text(
+                                                                "Total",
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        17,
+                                                                    fontFamily:
+                                                                        FontPicker
+                                                                            .medium),
+                                                              ),
+                                                            ),
+                                                            Container(
+                                                              child:
+                                                                  FutureBuilder<
+                                                                      dynamic>(
+                                                                future:
+                                                                    countRespondents(),
+                                                                builder: (context,
+                                                                    snapshot) {
+                                                                  if (snapshot
+                                                                      .hasData) {
+                                                                    return Center(
+                                                                      child:
+                                                                          Text(
+                                                                        snapshot
+                                                                            .data
+                                                                            .toString(),
+                                                                        style:
+                                                                            TextStyle(
+                                                                          color: Color.fromARGB(
+                                                                              255,
+                                                                              59,
+                                                                              104,
+                                                                              156),
+                                                                          fontFamily:
+                                                                              FontPicker.bold,
+                                                                          fontSize:
+                                                                              30,
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  } else {
+                                                                    return const Center(
+                                                                      child: CircularProgressIndicator
+                                                                          .adaptive(),
+                                                                    );
+                                                                  }
+                                                                },
+                                                              ),
+                                                            ),
+                                                            Container(
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      top: 10),
+                                                              alignment:
+                                                                  Alignment
+                                                                      .topCenter,
+                                                              child: Text(
+                                                                "Person",
+                                                                style: TextStyle(
+                                                                    fontFamily:
+                                                                        FontPicker
+                                                                            .medium,
+                                                                    fontSize:
+                                                                        15),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        child: Column(
+                                                          children: <Widget>[
+                                                            Padding(
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      top: 20),
+                                                              child: Text(
+                                                                "Gender ",
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        17,
+                                                                    fontFamily:
+                                                                        FontPicker
+                                                                            .medium),
+                                                              ),
+                                                            ),
+                                                            Container(
+                                                              width: 205,
+                                                              height: 100,
+                                                              child:
+                                                                  SfCircularChart(
+                                                                legend: Legend(
+                                                                    isVisible:
+                                                                        true),
+                                                                series: <CircularSeries>[
+                                                                  DoughnutSeries<
+                                                                      Gender,
+                                                                      String>(
+                                                                    enableTooltip:
+                                                                        true,
+                                                                    dataLabelSettings:
+                                                                        DataLabelSettings(
+                                                                            isVisible:
+                                                                                true),
+                                                                    dataSource:
+                                                                        _genderData,
+                                                                    xValueMapper:
+                                                                        (Gender data,
+                                                                                _) =>
+                                                                            data.jk,
+                                                                    yValueMapper:
+                                                                        (Gender data,
+                                                                                _) =>
+                                                                            data.jumlah,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Container(
+                                              constraints:
+                                                  BoxConstraints.expand(
+                                                width: 205,
+                                                height: 340,
+                                              ),
+                                              child: Column(
+                                                children: <Widget>[
+                                                  Padding(
+                                                    padding: EdgeInsets.only(
+                                                        top: 15),
+                                                    child: Text(
+                                                      "Negara Asal ",
+                                                      style: TextStyle(
+                                                          fontSize: 17,
+                                                          fontFamily: FontPicker
+                                                              .medium),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    child: SfCircularChart(
+                                                      legend: Legend(
                                                           isVisible: true),
-                                                  dataSource: _chartData,
-                                                  xValueMapper:
-                                                      (Negara data, _) =>
-                                                          data.negara,
-                                                  yValueMapper:
-                                                      (Negara data, _) =>
-                                                          data.jumlah,
-                                                )
-                                              ],
-                                            )
+                                                      series: <CircularSeries>[
+                                                        PieSeries<Negara,
+                                                            String>(
+                                                          dataLabelSettings:
+                                                              DataLabelSettings(
+                                                                  isVisible:
+                                                                      true),
+                                                          dataSource:
+                                                              _chartData,
+                                                          xValueMapper:
+                                                              (Negara data,
+                                                                      _) =>
+                                                                  data.negara,
+                                                          yValueMapper:
+                                                              (Negara data,
+                                                                      _) =>
+                                                                  data.jumlah,
+                                                        )
+                                                      ],
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
                                           ],
                                         )
                                       ],
@@ -422,158 +594,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                     ),
                                   ],
                                 ),
-                                SizedBox(height: 10),
-                                Row(
-                                  children: <Widget>[
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          child: Card(
-                                            color: Color.fromRGBO(
-                                                223, 232, 243, 1),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(15.0),
-                                            ),
-                                            elevation: 5,
-                                            shadowColor: Color.fromARGB(
-                                                255, 21, 57, 135),
-                                            child: Column(
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          top: 15),
-                                                  child: Text(
-                                                    "Koresponden",
-                                                    style: TextStyle(
-                                                        color: Color.fromARGB(
-                                                            255, 0, 0, 0),
-                                                        fontFamily:
-                                                            FontPicker.medium,
-                                                        fontSize: 17),
-                                                  ),
-                                                ),
-                                                Container(
-                                                  width: 150,
-                                                  height: 60,
-                                                  child: FutureBuilder<dynamic>(
-                                                    future: countRespondents(),
-                                                    builder:
-                                                        (context, snapshot) {
-                                                      if (snapshot.hasData) {
-                                                        return Center(
-                                                          child: Text(
-                                                            snapshot.data
-                                                                .toString(),
-                                                            style: TextStyle(
-                                                              color: Color
-                                                                  .fromARGB(
-                                                                      255,
-                                                                      59,
-                                                                      104,
-                                                                      156),
-                                                              fontFamily:
-                                                                  FontPicker
-                                                                      .bold,
-                                                              fontSize: 30,
-                                                            ),
-                                                          ),
-                                                        );
-                                                      } else {
-                                                        return const Center(
-                                                          child:
-                                                              CircularProgressIndicator
-                                                                  .adaptive(),
-                                                        );
-                                                      }
-                                                    },
-                                                  ),
-                                                ),
-                                                Container(
-                                                  padding: EdgeInsets.only(
-                                                      bottom: 10),
-                                                  alignment:
-                                                      Alignment.topCenter,
-                                                  child: Text(
-                                                    "Person",
-                                                    style: TextStyle(
-                                                        fontFamily:
-                                                            FontPicker.medium,
-                                                        fontSize: 15),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          child: Card(
-                                            color: Color.fromRGBO(
-                                                223, 232, 243, 0.98),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(15.0),
-                                            ),
-                                            elevation: 5,
-                                            shadowColor: Color.fromARGB(
-                                                255, 21, 57, 135),
-                                            child: Column(
-                                              children: <Widget>[
-                                                Padding(
-                                                  padding:
-                                                      EdgeInsets.only(top: 15),
-                                                  child: Text(
-                                                    "Gender Responden",
-                                                    style: TextStyle(
-                                                        fontSize: 17,
-                                                        fontFamily:
-                                                            FontPicker.medium),
-                                                  ),
-                                                ),
-                                                Container(
-                                                  width: 205,
-                                                  height: 95,
-                                                  child: SfCircularChart(
-                                                    legend:
-                                                        Legend(isVisible: true),
-                                                    series: <CircularSeries>[
-                                                      DoughnutSeries<Gender,
-                                                          String>(
-                                                        enableTooltip: true,
-                                                        dataLabelSettings:
-                                                            DataLabelSettings(
-                                                                isVisible:
-                                                                    true),
-                                                        dataSource: _genderData,
-                                                        xValueMapper:
-                                                            (Gender data, _) =>
-                                                                data.jk,
-                                                        yValueMapper:
-                                                            (Gender data, _) =>
-                                                                data.jumlah,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 10),
                                 Column(
                                   children: <Widget>[
                                     ExpansionTile(
                                       title: const Text(
                                         'Faktor Permasalahan',
                                         style: TextStyle(
-                                            fontFamily: FontPicker.medium),
+                                            fontFamily: FontPicker.bold),
                                       ),
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
@@ -662,7 +689,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                     "Average GPA",
                                                     style: TextStyle(
                                                         fontFamily:
-                                                            FontPicker.medium,
+                                                            FontPicker.bold,
                                                         fontSize: 17),
                                                   ),
                                                 ),
@@ -743,7 +770,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                     "Average Age ",
                                                     style: TextStyle(
                                                         fontFamily:
-                                                            FontPicker.medium,
+                                                            FontPicker.bold,
                                                         fontSize: 17),
                                                   ),
                                                 ),
@@ -815,7 +842,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                       title: const Text(
                                         'Rerata Usia',
                                         style: TextStyle(
-                                            fontFamily: FontPicker.medium),
+                                            fontFamily: FontPicker.bold),
                                       ),
                                       shape: RoundedRectangleBorder(
                                           borderRadius:

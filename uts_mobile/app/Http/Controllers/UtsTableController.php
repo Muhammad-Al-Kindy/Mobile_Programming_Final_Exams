@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 class UtsTableController extends Controller
 {
-    public function index(){
-        $data = uts_table::all();
+    public function index($pagination){
+        $data = uts_table::pagination($pagination);
         return $data;
     }
     public function show_all(){

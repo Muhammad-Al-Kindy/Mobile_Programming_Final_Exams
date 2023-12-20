@@ -19,7 +19,7 @@ return new class extends Migration
             $table->double('gpa');
             $table->integer('year');
             $table->integer('count');
-            $table->string('gender');
+            $table->enum('gender',['M','F']);
             $table->string('nationality');
             $table->timestamps();
         });

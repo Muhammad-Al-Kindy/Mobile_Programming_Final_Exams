@@ -1,4 +1,16 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_import, use_key_in_widget_constructors, camel_case_types, unnecessary_import, unused_local_variable, depend_on_referenced_packages, unused_element, unnecessary_new, deprecated_member_use
+
+import 'dart:async';
+import 'dart:convert';
+import 'dart:ui';
+import 'package:midterm_exam_mobile/pickers/font_pickers.dart';
 import 'package:flutter/material.dart';
+import 'package:midterm_exam_mobile/models/age.dart';
+import 'package:midterm_exam_mobile/controllers/app_routes.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:midterm_exam_mobile/models/negara.dart';
+import 'package:midterm_exam_mobile/models/gender.dart';
+import 'package:midterm_exam_mobile/models/genre.dart';
 import 'package:dio/dio.dart';
 
 class DetailScreen extends StatefulWidget {
@@ -8,191 +20,130 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen> {
   final dio = Dio();
+  int pageNumber = 1;
+  int pageSize = 20;
+  int totalItems = 0;
   List<Map<String, dynamic>> data = [];
-  List<String> items = [];
-  bool isLoading = false;
-  int currentPage = 1;
-  int totalPages = 10; // Set the total number of pages you want to paginate to.
-  ScrollController _scrollController = ScrollController();
 
-  String url_domain = "http://192.168.0.106:8000/";
+  String url_domain = "http://192.168.209.203:8000/";
 
   @override
   void initState() {
     super.initState();
     show_all_data();
-    _scrollController.addListener(_onScroll);
   }
 
-  @override
-  void dispose() {
-    _scrollController.removeListener(_onScroll);
-    _scrollController.dispose();
-    super.dispose();
-  }
+  Future<void> show_all_data() async {
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response = await dio
+            .get("${url_domain}api/all_data/$pageSize?page=$pageNumber");
+        var result = response.data;
 
-  void _loadData() {
-    // Check if we've reached the desired number of pages.
-    if (currentPage > totalPages) {
-      return;
-    }
-
-    // Simulate loading data from your data source (e.g., an API).
-    // Append new items to the 'items' list.
-    setState(() {
-      isLoading = true;
-    });
-
-    // Fetch and append data here...
-
-    setState(() {
-      isLoading = false;
-      currentPage++;
-    });
-  }
-
-  void _onScroll() {
-    if (_scrollController.position.pixels ==
-        _scrollController.position.maxScrollExtent) {
-      if (!isLoading) {
-        _loadData();
+        if (result is Map<String, dynamic>) {
+          totalItems = result['totalItems'];
+          List<Map<String, dynamic>> data =
+              List<Map<String, dynamic>>.from(result['data']);
+        }
+        break; // break the loop after successfully getting the data
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response!.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 4));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
       }
-    }
-  }
-
-  Future<dynamic> show_all_data() async {
-    try {
-      var response = await dio.post("${url_domain}api/all_data");
-      var result = response.data;
-      //return result;
-      if (result is List) {
-        data = List<Map<String, dynamic>>.from(result);
-        setState(() {});
-      }
-    } catch (e) {
-      print('error : ${e.toString()}');
-      rethrow;
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // body: ListView.builder(
-      //   itemCount: items.length + 1,
-      //   itemBuilder: (context, index) {
-      //     if (index < items.length) {
-      //       return ListTile(
-      //         title: Text(items[index]),
-      //       );
-      //     } else if (isLoading) {
-      //       return Center(child: CircularProgressIndicator());
-      //     } else {
-      //       return Center(
-      //         child: ElevatedButton(
-      //           onPressed: () {
-      //             _loadData();
-      //           },
-      //           child: Text('Load More'),
-      //         ),
-      //       );
-      //     }
-      //   },
-      //   controller: _scrollController,
-      // ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Container(
-              child: Stack(
-                children: [
-                  Transform.translate(
-                    offset: Offset(-100.0, 0.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(800),
-                        bottomRight: Radius.circular(800),
-                      ),
-                      child: Container(
-                        width: double.infinity,
-                        height: 140,
-                        color: Colors.red[800],
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                      top: 5,
-                      left: 5,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(7),
-                        child: Container(
-                            height: 40,
-                            width: 40,
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.menu,
-                                size: 30,
-                              ),
-                              onPressed: () {},
-                            )),
-                      )),
-                ],
-              ),
-            ),
-            //=============== BODY ====================
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(children: [
-                  Container(
-                    margin: const EdgeInsets.symmetric(
-                        vertical: 20, horizontal: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 20),
-                          child: Text(
-                            // ignore: prefer_interpolation_to_compose_strings
-                            "Detail Responden ",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 25,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        ListView.builder(
-                          itemCount: data.length + 1,
-                          itemBuilder: (context, index) {
-                            if (index < data.length) {
-                              return DataTable(
-                                columnSpacing: 16,
-                                dataRowMaxHeight: 150,
-                                columns: const <DataColumn>[
-                                  DataColumn(
-                                    label: Text(
-                                      'Genre',
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          'Cripst Dashboard',
+          textAlign: TextAlign.end,
+          style: TextStyle(
+            fontFamily: FontPicker.boldPoppins,
+          ),
+        ),
+        backgroundColor: Color.fromARGB(255, 21, 57, 135),
+      ),
+      body: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  child: SizedBox(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            margin: const EdgeInsets.symmetric(
+                                vertical: 20, horizontal: 20),
+                            child: Column(
+                              children: <Widget>[
+                                const Padding(
+                                  padding: EdgeInsets.only(bottom: 20),
+                                  child: Text(
+                                    "Hasil Survey dari Responden ",
+                                    textAlign: TextAlign.end,
+                                    style: TextStyle(
+                                        fontFamily: FontPicker.boldPoppins,
+                                        fontSize: 18),
+                                  ),
+                                ),
+                                Container(
+                                  alignment: Alignment.topRight,
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pushNamed(AppRoutes.addDataScreen);
+                                    },
+                                    style: ElevatedButton.styleFrom(),
+                                    child: const Text(
+                                      "Tambah data",
                                       style: TextStyle(
-                                          fontStyle: FontStyle.italic),
+                                        color: Colors.white,
+                                        fontFamily: FontPicker.boldPoppins,
+                                        fontSize: 18,
+                                      ),
                                     ),
                                   ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Reports',
-                                      style: TextStyle(
-                                          fontStyle: FontStyle.italic),
+                                ),
+                                DataTable(
+                                  columnSpacing: 16,
+                                  dataRowMaxHeight: 150,
+                                  columns: const <DataColumn>[
+                                    DataColumn(
+                                      label: Text(
+                                        'Genre',
+                                        style: TextStyle(
+                                            fontStyle: FontStyle.italic),
+                                      ),
                                     ),
-                                  ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Gpa',
-                                      style: TextStyle(
-                                          fontStyle: FontStyle.italic),
+                                    DataColumn(
+                                      label: Text(
+                                        'Reports',
+                                        style: TextStyle(
+                                            fontStyle: FontStyle.italic),
+                                      ),
                                     ),
-                                  ),
-                                ],
-                                rows: data.map(
-                                  (rowData) {
+                                    DataColumn(
+                                      label: Text(
+                                        'Gpa',
+                                        style: TextStyle(
+                                            fontStyle: FontStyle.italic),
+                                      ),
+                                    ),
+                                  ],
+                                  rows: data.map((rowData) {
                                     return DataRow(
                                       cells: <DataCell>[
                                         DataCell(
@@ -226,103 +177,20 @@ class _DetailScreenState extends State<DetailScreen> {
                                         )
                                       ],
                                     );
-                                  },
-                                ).toList(),
-                              );
-                            }
-                          },
-                        ),
-                        // DataTable(
-                        //   columnSpacing: 16,
-                        //   dataRowMaxHeight: 150,
-                        //   columns: const <DataColumn>[
-                        //     DataColumn(
-                        //       label: Text(
-                        //         'Genre',
-                        //         style: TextStyle(fontStyle: FontStyle.italic),
-                        //       ),
-                        //     ),
-                        //     DataColumn(
-                        //       label: Text(
-                        //         'Reports',
-                        //         style: TextStyle(fontStyle: FontStyle.italic),
-                        //       ),
-                        //     ),
-                        //     DataColumn(
-                        //       label: Text(
-                        //         'Gpa',
-                        //         style: TextStyle(fontStyle: FontStyle.italic),
-                        //       ),
-                        //     ),
-                        //   ],
-                        //   rows: data.map(
-                        //     (rowData) {
-                        //       return DataRow(
-                        //         cells: <DataCell>[
-                        //           DataCell(
-                        //             Container(
-                        //               width: 80, // Atur lebar sel
-                        //               height: 200, // Atur tinggi sel
-                        //               alignment: Alignment
-                        //                   .centerLeft, // Atur alignment teks dalam sel
-                        //               child: Text(rowData['genre'].toString()),
-                        //             ), // Atur margin vertikal
-                        //           ),
-                        //           DataCell(
-                        //             Container(
-                        //               width: 180, // Atur lebar sel
-                        //               height: 150, // Atur tinggi sel
-                        //               alignment: Alignment
-                        //                   .centerLeft, // Atur alignment teks dalam sel
-                        //               child:
-                        //                   Text(rowData['reports'].toString()),
-                        //             ),
-                        //           ),
-                        //           DataCell(
-                        //             Container(
-                        //                 width: 100, // Atur lebar sel
-                        //                 height: 40, // Atur tinggi sel
-                        //                 alignment: Alignment
-                        //                     .centerLeft, // Atur alignment teks dalam sel
-                        //                 child: Text(rowData['gpa'].toString())),
-                        //           )
-                        //         ],
-                        //       );
-                        //     },
-                        //   ).toList(),
-                        // ),
-                        Container(
-                          width: double.infinity,
-                          margin: const EdgeInsets.all(20),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.red[800],
-                              padding: EdgeInsets.all(15),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                            child: Text(
-                              "Kembali",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
+                                  }).toList(),
+                                ),
+                              ],
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ]),
-              ),
-            )
-          ],
-        ),
+                ),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

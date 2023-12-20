@@ -1,10 +1,11 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_import, use_key_in_widget_constructors, camel_case_types, unnecessary_import, unused_local_variable, depend_on_referenced_packages, unused_element, unnecessary_new
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_import, use_key_in_widget_constructors, camel_case_types, unnecessary_import, unused_local_variable, depend_on_referenced_packages, unused_element, unnecessary_new, deprecated_member_use
 
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ui';
+import 'package:midterm_exam_mobile/models/status_akhir.dart';
+import 'package:midterm_exam_mobile/models/user.dart';
 import 'package:midterm_exam_mobile/pickers/font_pickers.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:midterm_exam_mobile/models/age.dart';
 import 'package:midterm_exam_mobile/controllers/app_routes.dart';
@@ -13,7 +14,6 @@ import 'package:midterm_exam_mobile/models/negara.dart';
 import 'package:midterm_exam_mobile/models/gender.dart';
 import 'package:midterm_exam_mobile/models/genre.dart';
 import 'package:dio/dio.dart';
-import 'package:charts_flutter_new/flutter.dart' as charts;
 
 class DashboardScreen extends StatefulWidget {
   @override
@@ -23,9 +23,13 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   final dio = Dio();
   List<Negara>? _chartData;
+  List<StatusAkhir>? _statusAkhirData;
   List<Gender>? _genderData;
   late List<Genre> _genreData = [];
   late List<Age> _ageData = [];
+  late String username = '';
+  late String nim = '';
+  late Future<Map<String, dynamic>> userData;
 
   late TooltipBehavior _tooltipBehavior;
 
@@ -39,224 +43,802 @@ class _DashboardScreenState extends State<DashboardScreen> {
     super.initState();
   }
 
-  String url_domain = "http://192.168.77.229:8000/";
+  String url_domain = "http://192.168.209.203:8000/";
+
+  Future<Map<String, dynamic>> users(String nim) async {
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response = await dio.get("${url_domain}api/search/$nim");
+        final result = response.data;
+        return result
+            as Map<String, dynamic>; // Cast the result to the correct type
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 1));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
+    throw Exception(
+        "Failed to fetch user data"); // Add a throw statement to handle the case where the loop doesn't succeed
+  }
+
+  void fetchData() async {
+    try {
+      // Wait for the userData Future to complete
+      Map<String, dynamic> userDataMap = await userData;
+
+      // Now you can safely access the 'name' attribute
+      setState(() {
+        username = userDataMap['name'];
+        nim = userDataMap['nim'];
+      });
+
+      // Use the userName variable as needed
+      print('User name: $username');
+    } catch (error) {
+      print('Error fetching user data: $error');
+    }
+  }
 
   Future<dynamic> countRespondents() async {
-    var response = await dio.get("${url_domain}api/count/respondents");
-    var result = response.data;
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response = await dio.get("${url_domain}api/count/respondents");
+        return response.data;
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 1));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> avgGpa() async {
-    var response = await dio.get("${url_domain}api/avg/gpa");
-    var result = response.data;
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response = await dio.get("${url_domain}api/avg/gpa");
+        return response.data;
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 1));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> avgAge() async {
-    var response = await dio.get("${url_domain}api/avg/age");
-    var result = double.parse(response.data);
-    var akhirResult = result.toStringAsFixed(3);
-    return akhirResult;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response = await dio.get("${url_domain}api/avg/age");
+        var result = double.parse(response.data);
+        return result.toStringAsFixed(3);
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 1));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> countAge16() async {
-    var response = await dio.get("${url_domain}api/count/age/16");
-    var result = response.data;
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response = await dio.get("${url_domain}api/count/age/16");
+        return response.data;
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 2));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> countAge17() async {
-    var response = await dio.get("${url_domain}api/count/age/17");
-    var result = response.data;
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response = await dio.get("${url_domain}api/count/age/17");
+        return response.data;
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 2));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> countAge18() async {
-    var response = await dio.get("${url_domain}api/count/age/18");
-    var result = response.data;
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response = await dio.get("${url_domain}api/count/age/18");
+        return response.data;
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 2));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> countAge19() async {
-    var response = await dio.get("${url_domain}api/count/age/19");
-    var result = response.data;
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response = await dio.get("${url_domain}api/count/age/19");
+        return response.data;
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 2));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> countAge20() async {
-    var response = await dio.get("${url_domain}api/count/age/20");
-    var result = response.data;
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response = await dio.get("${url_domain}api/count/age/20");
+        return response.data;
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 2));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> countAge21() async {
-    var response = await dio.get("${url_domain}api/count/age/21");
-    var result = response.data;
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response = await dio.get("${url_domain}api/count/age/21");
+        return response.data;
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 2));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> countAge22() async {
-    var response = await dio.get("${url_domain}api/count/age/22");
-    var result = response.data;
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response = await dio.get("${url_domain}api/count/age/22");
+        return response.data;
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 2));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> countAge23() async {
-    var response = await dio.get("${url_domain}api/count/age/23");
-    var result = response.data;
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response = await dio.get("${url_domain}api/count/age/23");
+        return response.data;
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 2));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> countAge24() async {
-    var response = await dio.get("${url_domain}api/count/age/24");
-    var result = response.data;
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response = await dio.get("${url_domain}api/count/age/24");
+        return response.data;
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 2));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> countAge25() async {
-    var response = await dio.get("${url_domain}api/count/age/25");
-    var result = response.data;
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response = await dio.get("${url_domain}api/count/age/25");
+        return response.data;
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 2));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> countAge26() async {
-    var response = await dio.get("${url_domain}api/count/age/26");
-    var result = response.data;
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response = await dio.get("${url_domain}api/count/age/26");
+        return response.data;
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 2));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> countAge27() async {
-    var response = await dio.get("${url_domain}api/count/age/27");
-    var result = response.data;
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response = await dio.get("${url_domain}api/count/age/27");
+        return response.data;
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 2));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> countGenreAcademic() async {
-    var response = await dio
-        .get("${url_domain}api/count/genre/Academic Support and Resources");
-    var result = int.parse(response.data[0].toString());
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response = await dio
+            .get("${url_domain}api/count/genre/Academic Support and Resources");
+        return int.parse(response.data[0].toString());
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 3));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> countGenreAthletics() async {
-    var response =
-        await dio.get("${url_domain}api/count/genre/Athletics and sports");
-    var result = int.parse(response.data[0].toString());
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response =
+            await dio.get("${url_domain}api/count/genre/Athletics and sports");
+        return int.parse(response.data[0].toString());
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 3));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> countGenreCareer() async {
-    var response =
-        await dio.get("${url_domain}api/count/genre/Career opportunities");
-    var result = int.parse(response.data[0].toString());
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response =
+            await dio.get("${url_domain}api/count/genre/Career opportunities");
+        return int.parse(response.data[0].toString());
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 3));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> countGenreFinancial() async {
-    var response =
-        await dio.get("${url_domain}api/count/genre/Financial Support");
-    var result = int.parse(response.data[0].toString());
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response =
+            await dio.get("${url_domain}api/count/genre/Financial Support");
+        return int.parse(response.data[0].toString());
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 3));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> countGenreHealth() async {
-    var response = await dio
-        .get("${url_domain}api/count/genre/Health and Well-being Support");
-    var result = int.parse(response.data[0].toString());
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response = await dio
+            .get("${url_domain}api/count/genre/Health and Well-being Support");
+        return int.parse(response.data[0].toString());
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 3));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> countGenreInternational() async {
-    var response = await dio
-        .get("${url_domain}api/count/genre/International student experiences");
-    var result = int.parse(response.data[0].toString());
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response = await dio.get(
+            "${url_domain}api/count/genre/International student experiences");
+        return int.parse(response.data[0].toString());
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 3));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> countGenreOnline() async {
-    var response =
-        await dio.get("${url_domain}api/count/genre/Online learning");
-    var result = int.parse(response.data[0].toString());
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response =
+            await dio.get("${url_domain}api/count/genre/Online learning");
+        return int.parse(response.data[0].toString());
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 3));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> countGenreStudent() async {
-    var response =
-        await dio.get("${url_domain}api/count/genre/Student Affairs");
-    var result = int.parse(response.data[0].toString());
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response =
+            await dio.get("${url_domain}api/count/genre/Student Affairs");
+        return int.parse(response.data[0].toString());
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 3));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> countGenreHousing() async {
-    var response = await dio
-        .get("${url_domain}api/count/genre/Housing and Transportation");
-    var result = int.parse(response.data[0].toString());
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response = await dio
+            .get("${url_domain}api/count/genre/Housing and Transportation");
+        return int.parse(response.data[0].toString());
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 3));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> countGenreActivities() async {
-    var response =
-        await dio.get("${url_domain}api/count/genre/Activities and Travelling");
-    var result = int.parse(response.data[0].toString());
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response = await dio
+            .get("${url_domain}api/count/genre/Activities and Travelling");
+        return int.parse(response.data[0].toString());
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 3));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> countGenreFood() async {
-    var response =
-        await dio.get("${url_domain}api/count/genre/Food and Cantines");
-    var result = int.parse(response.data[0].toString());
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response =
+            await dio.get("${url_domain}api/count/genre/Food and Cantines");
+        return int.parse(response.data[0].toString());
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 3));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> countGenderF() async {
-    var response = await dio.get("${url_domain}api/count/gender/F");
-    var result = int.parse(response.data[0].toString());
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response = await dio.get("${url_domain}api/count/gender/F");
+        return int.parse(response.data[0].toString());
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 4));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> countGenderM() async {
-    var response = await dio.get("${url_domain}api/count/gender/M");
-    var result = int.parse(response.data[0].toString());
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response = await dio.get("${url_domain}api/count/gender/M");
+        return int.parse(response.data[0].toString());
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 4));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
+  }
+
+  Future<dynamic> countStatusLulus() async {
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response = await dio.get("${url_domain}api/count/mhs/Lulus");
+        return int.parse(response.data[0].toString());
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 10));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
+  }
+
+  Future<dynamic> countStatusKeluar() async {
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response =
+            await dio.get("${url_domain}api/count/mhs/KeluarMengundurkanDiri");
+        return int.parse(response.data[0].toString());
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 10));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
+  }
+
+  Future<dynamic> countStatusMengulang() async {
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response = await dio.get(
+            "${url_domain}api/count/mhs/Mengulang Karena Tidak Lulus Tugas Akhir");
+        return int.parse(response.data[0].toString());
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 10));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
+  }
+
+  Future<dynamic> countStatusTidakAktif() async {
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response = await dio.get(
+            "${url_domain}/count/mhs/Tidak Aktif Mengulang TA (Mahasiswa Tidak Jelas)");
+        return int.parse(response.data[0].toString());
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 10));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
+  }
+
+  Future<dynamic> countStatusMdMaba() async {
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response = await dio.get("${url_domain}/count/mhs/MD MABA");
+        return int.parse(response.data[0].toString());
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 10));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
+  }
+
+  Future<dynamic> countStatusMduTdu() async {
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response =
+            await dio.get("${url_domain}/count/mhs/MD TDU setelah Cuti TRM");
+        return int.parse(response.data[0].toString());
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 10));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> countNationalityIndonesia() async {
-    var response =
-        await dio.get("${url_domain}api/count/nationality/Indonesia");
-    var result = int.parse(response.data[0].toString());
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response =
+            await dio.get("${url_domain}api/count/nationality/Indonesia");
+        return int.parse(response.data[0].toString());
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 5));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> countNationalitySoudan() async {
-    var response = await dio.get("${url_domain}api/count/nationality/Soudan");
-    var result = int.parse(response.data[0].toString());
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response =
+            await dio.get("${url_domain}api/count/nationality/Soudan");
+        return int.parse(response.data[0].toString());
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 5));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> countNationalityFrance() async {
-    var response = await dio.get("${url_domain}api/count/nationality/France");
-    var result = int.parse(response.data[0].toString());
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response =
+            await dio.get("${url_domain}api/count/nationality/France");
+        return int.parse(response.data[0].toString());
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 5));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> countNationalityMexico() async {
-    var response = await dio.get("${url_domain}api/count/nationality/Mexico");
-    var result = int.parse(response.data[0].toString());
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response =
+            await dio.get("${url_domain}api/count/nationality/Mexico");
+        return int.parse(response.data[0].toString());
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 5));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> countNationalitySouth() async {
-    var response =
-        await dio.get("${url_domain}api/count/nationality/South Africa");
-    var result = int.parse(response.data[0].toString());
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response =
+            await dio.get("${url_domain}api/count/nationality/South Africa");
+        return int.parse(response.data[0].toString());
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 5));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
   }
 
   Future<dynamic> countNationalityYemen() async {
-    var response = await dio.get("${url_domain}api/count/nationality/Yemen");
-    var result = int.parse(response.data[0].toString());
-    return result;
+    for (int i = 0; i < 3; i++) {
+      try {
+        final response =
+            await dio.get("${url_domain}api/count/nationality/Yemen");
+        return int.parse(response.data[0].toString());
+      } on DioError catch (e) {
+        if (e.type == DioErrorType.badResponse) {
+          if (e.response?.statusCode == 429) {
+            await Future.delayed(Duration(seconds: 5));
+            continue;
+          }
+        }
+        print('Request error: $e');
+        rethrow;
+      }
+    }
+  }
+
+  Future<List<StatusAkhir>> getStatusAkhirData() async {
+    List<StatusAkhir> statusAkhirData = [
+      StatusAkhir('Lulus', await countStatusMduTdu()),
+      StatusAkhir('Keluar Mengundurkan Diri', await countStatusKeluar()),
+      StatusAkhir('Mengulang Karena Tidak Lulus Tugas Akhir',
+          await countStatusMengulang()),
+      StatusAkhir('Tidak Aktif Mengulang TA (Mahasiswa Tidak Jelas)',
+          await countStatusTidakAktif()),
+      StatusAkhir('MD MABA', await countStatusMdMaba()),
+      StatusAkhir('MD TDU setelah Cuti TRM', await countStatusMduTdu()),
+    ];
+    return statusAkhirData;
   }
 
   Future<List<Negara>> getChartData() async {
@@ -335,8 +917,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
     setState(() {});
   }
 
+  Future<void> _getStatusAkhirData() async {
+    _statusAkhirData = _statusAkhirData ?? await getStatusAkhirData();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
+    User user = ModalRoute.of(context)!.settings.arguments as User;
+    userData = users(user.nim);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -344,7 +933,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           'Cripst Dashboard',
           textAlign: TextAlign.end,
           style: TextStyle(
-            fontFamily: FontPicker.bold,
+            fontFamily: FontPicker.boldPoppins,
           ),
         ),
         backgroundColor: Color.fromARGB(255, 21, 57, 135),
@@ -371,7 +960,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                     "Hasil Survey dari Responden ",
                                     textAlign: TextAlign.end,
                                     style: TextStyle(
-                                        fontFamily: FontPicker.bold,
+                                        fontFamily: FontPicker.boldPoppins,
                                         fontSize: 18),
                                   ),
                                 ),
@@ -382,7 +971,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                       title: const Text(
                                         'Koresponden',
                                         style: TextStyle(
-                                            fontFamily: FontPicker.bold),
+                                            fontFamily: FontPicker.boldPoppins),
                                       ),
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
@@ -421,7 +1010,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                                         17,
                                                                     fontFamily:
                                                                         FontPicker
-                                                                            .medium),
+                                                                            .mediumPoppins),
                                                               ),
                                                             ),
                                                             Container(
@@ -448,7 +1037,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                                               104,
                                                                               156),
                                                                           fontFamily:
-                                                                              FontPicker.bold,
+                                                                              FontPicker.boldPoppins,
                                                                           fontSize:
                                                                               30,
                                                                         ),
@@ -475,7 +1064,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                                 style: TextStyle(
                                                                     fontFamily:
                                                                         FontPicker
-                                                                            .medium,
+                                                                            .mediumPoppins,
                                                                     fontSize:
                                                                         15),
                                                               ),
@@ -497,10 +1086,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                                         17,
                                                                     fontFamily:
                                                                         FontPicker
-                                                                            .medium),
+                                                                            .mediumPoppins),
                                                               ),
                                                             ),
-                                                            Container(
+                                                            SizedBox(
                                                               width: 205,
                                                               height: 100,
                                                               child:
@@ -556,7 +1145,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                       style: TextStyle(
                                                           fontSize: 17,
                                                           fontFamily: FontPicker
-                                                              .medium),
+                                                              .mediumPoppins),
                                                     ),
                                                   ),
                                                   Container(
@@ -594,13 +1183,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                     ),
                                   ],
                                 ),
+                                SizedBox(
+                                  height: 10,
+                                ),
                                 Column(
                                   children: <Widget>[
                                     ExpansionTile(
                                       title: const Text(
                                         'Faktor Permasalahan',
                                         style: TextStyle(
-                                            fontFamily: FontPicker.bold),
+                                            fontFamily: FontPicker.boldPoppins),
                                       ),
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
@@ -688,8 +1280,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                   child: Text(
                                                     "Average GPA",
                                                     style: TextStyle(
-                                                        fontFamily:
-                                                            FontPicker.bold,
+                                                        fontFamily: FontPicker
+                                                            .boldPoppins,
                                                         fontSize: 17),
                                                   ),
                                                 ),
@@ -718,7 +1310,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                                       156),
                                                               fontFamily:
                                                                   FontPicker
-                                                                      .bold,
+                                                                      .boldPoppins,
                                                               fontSize: 30,
                                                             ),
                                                           ),
@@ -741,8 +1333,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                   child: Text(
                                                     "GPA",
                                                     style: TextStyle(
-                                                        fontFamily:
-                                                            FontPicker.medium,
+                                                        fontFamily: FontPicker
+                                                            .mediumPoppins,
                                                         fontSize: 17),
                                                   ),
                                                 ),
@@ -769,8 +1361,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                   child: Text(
                                                     "Average Age ",
                                                     style: TextStyle(
-                                                        fontFamily:
-                                                            FontPicker.bold,
+                                                        fontFamily: FontPicker
+                                                            .boldPoppins,
                                                         fontSize: 17),
                                                   ),
                                                 ),
@@ -797,7 +1389,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                                       156),
                                                               fontFamily:
                                                                   FontPicker
-                                                                      .bold,
+                                                                      .boldPoppins,
                                                               fontSize: 30,
                                                             ),
                                                           ),
@@ -820,8 +1412,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                   child: Text(
                                                     "Age",
                                                     style: TextStyle(
-                                                        fontFamily:
-                                                            FontPicker.medium,
+                                                        fontFamily: FontPicker
+                                                            .mediumPoppins,
                                                         fontSize: 17),
                                                   ),
                                                 ),
@@ -842,7 +1434,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                       title: const Text(
                                         'Rerata Usia',
                                         style: TextStyle(
-                                            fontFamily: FontPicker.bold),
+                                            fontFamily: FontPicker.boldPoppins),
                                       ),
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
@@ -918,7 +1510,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                       "Lihat Detail Responden",
                                       style: TextStyle(
                                         color: Colors.white,
-                                        fontFamily: FontPicker.bold,
+                                        fontFamily: FontPicker.boldPoppins,
                                         fontSize: 18,
                                       ),
                                     ),

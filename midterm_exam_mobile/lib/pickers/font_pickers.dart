@@ -1,6 +1,6 @@
 class FontPicker {
-  static const regular = 'Poppins-Regular';
-  static const medium = 'Poppins-Medium';
-  static const semibold = 'Poppins-SemiBold';
-  static const bold = 'Poppins-Bold';
+  static const regularPoppins = 'Poppins-Regular';
+  static const mediumPoppins = 'Poppins-Medium';
+  static const semiboldPoppins = 'Poppins-SemiBold';
+  static const boldPoppins = 'Poppins-Bold';
 }
